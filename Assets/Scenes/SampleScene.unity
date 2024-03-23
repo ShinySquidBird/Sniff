@@ -1232,12 +1232,20 @@ PrefabInstance:
       value: 17.5
       objectReference: {fileID: 0}
     - target: {fileID: 206888241476982105, guid: 21fe5ae6f738e2445a47387edb4b222e, type: 3}
+      propertyPath: maxCharge
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 206888241476982105, guid: 21fe5ae6f738e2445a47387edb4b222e, type: 3}
       propertyPath: jumpHeightH
-      value: 500
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 206888241476982105, guid: 21fe5ae6f738e2445a47387edb4b222e, type: 3}
       propertyPath: jumpHeightV
-      value: 1000
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 206888241476982105, guid: 21fe5ae6f738e2445a47387edb4b222e, type: 3}
+      propertyPath: chargePerSec
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 976431051700354862, guid: 21fe5ae6f738e2445a47387edb4b222e, type: 3}
       propertyPath: m_Name
@@ -1366,11 +1374,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8941150220704761625, guid: 09b859cb4241c714b9eb1818075ffb3e, type: 3}
       propertyPath: jumpHeightH
-      value: 50
+      value: 22.5
       objectReference: {fileID: 0}
     - target: {fileID: 8941150220704761625, guid: 09b859cb4241c714b9eb1818075ffb3e, type: 3}
       propertyPath: jumpHeightV
-      value: 100
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 8941150220704761625, guid: 09b859cb4241c714b9eb1818075ffb3e, type: 3}
+      propertyPath: chargePerSec
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

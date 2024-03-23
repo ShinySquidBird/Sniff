@@ -15,6 +15,12 @@ public class playerC1 : MonoBehaviour
     public bool isOnGround = true;
     public bool chargingJump = false;
 
+    // jumping charge
+    public float chargePerSec = 4.0f;
+    public float maxCharge = 25;
+    public float charge = 0.0f;
+
+    // to get boolean from timer script
     public Timer timer;
 
     // Start is called before the first frame update
@@ -57,18 +63,29 @@ public class playerC1 : MonoBehaviour
             chargingJump = true;
         }
 
+        // charge jump variable
+        if (Input.GetKey(KeyCode.Space) && isOnGround && timer.TimerOn) 
+        {
+            charge += chargePerSec * Time.deltaTime;
+            if (charge > maxCharge)
+            {
+                charge = maxCharge;
+            }
+        }
+
         // release charge
         if (Input.GetKeyUp(KeyCode.Space))
         {
             // begin charging jump
             chargingJump = false;
+            charge = 0;
         }
 
         // jump up
         if (Input.GetKeyUp(KeyCode.S) && isOnGround && chargingJump && timer.TimerOn)
         {
             // release jump
-            rBody.AddForce(transform.up * jumpHeightV, ForceMode.Impulse);
+            rBody.AddForce(transform.up * charge * jumpHeightV, ForceMode.Impulse);
             // prevents infinite jumping
             isOnGround = false;
         }
@@ -77,8 +94,8 @@ public class playerC1 : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.A) && isOnGround && chargingJump && timer.TimerOn)
         {
             // release jump
-            rBody.AddForce(transform.up * jumpHeightV, ForceMode.Impulse);
-            rBody.AddForce(transform.right * jumpHeightH, ForceMode.Impulse);
+            rBody.AddForce(transform.up * charge * jumpHeightV, ForceMode.Impulse);
+            rBody.AddForce(transform.right * charge * jumpHeightH, ForceMode.Impulse);
             // prevents infinite jumping
             isOnGround = false;
         }
@@ -87,8 +104,8 @@ public class playerC1 : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.D) && isOnGround && chargingJump && timer.TimerOn)
         {
             // release jump
-            rBody.AddForce(transform.up * jumpHeightV, ForceMode.Impulse);
-            rBody.AddForce(transform.right * -jumpHeightH, ForceMode.Impulse);
+            rBody.AddForce(transform.up * charge * jumpHeightV, ForceMode.Impulse);
+            rBody.AddForce(transform.right * charge * -jumpHeightH, ForceMode.Impulse);
             // prevents infinite jumping
             isOnGround = false;
         }
