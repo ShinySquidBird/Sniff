@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class playerC2 : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class playerC2 : MonoBehaviour
     // wall bouncyness
     public float wallBonk = 750.0f;
 
+    // sound
+    public AudioSource playerAudio;
+    public AudioClip jumpSound;
+    public AudioClip landSound;
+    public AudioClip pipe;
+
     // to get boolean from timer script
     public Timer timer;
 
@@ -30,6 +37,7 @@ public class playerC2 : MonoBehaviour
     void Start()
     {
         rBody = GetComponent<Rigidbody>();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -88,29 +96,33 @@ public class playerC2 : MonoBehaviour
         // jump up
         if (Input.GetKeyUp(KeyCode.DownArrow) && isOnGround && chargingJump && timer.TimerOn)
         {
-            // release jump
             rBody.AddForce(transform.up * charge * jumpHeightV, ForceMode.Impulse);
-            // prevents infinite jumping
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
             isOnGround = false;
         }
         // jump right
         if (Input.GetKeyUp(KeyCode.LeftArrow) && isOnGround && chargingJump && timer.TimerOn)
         {
-            // release jump
             rBody.AddForce(transform.up * charge * jumpHeightV, ForceMode.Impulse);
             rBody.AddForce(transform.right * charge * jumpHeightH, ForceMode.Impulse);
-            // prevents infinite jumping
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
             isOnGround = false;
         }
 
         // jump left
         if (Input.GetKeyUp(KeyCode.RightArrow) && isOnGround && chargingJump && timer.TimerOn)
         {
-            // release jump
             rBody.AddForce(transform.up * charge * jumpHeightV, ForceMode.Impulse);
             rBody.AddForce(transform.right * charge * -jumpHeightH, ForceMode.Impulse);
-            // prevents infinite jumping
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
             isOnGround = false;
+        }
+
+        // player death
+        if (timer.TimerOn == false)
+        {
+            playerAudio.PlayOneShot(pipe, 1.0f);
+            SceneManager.LoadScene("Player2Death");
         }
     }
     // player enviroment collision
@@ -143,7 +155,7 @@ public class playerC2 : MonoBehaviour
             Destroy(other.gameObject);
             timer.PowerUp();
             // maybe use this for how long till next one spawns->
-            // StartCoroutine(PowerupCountdownRoutine());
+            // StartCoroutine(goBack());
         }
     }
 }
