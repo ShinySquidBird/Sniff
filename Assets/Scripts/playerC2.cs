@@ -20,6 +20,9 @@ public class playerC2 : MonoBehaviour
     public float maxCharge = 25;
     public float charge = 0.0f;
 
+    // wall bouncyness
+    public float wallBonk = 750.0f;
+
     // to get boolean from timer script
     public Timer timer;
 
@@ -110,13 +113,25 @@ public class playerC2 : MonoBehaviour
             isOnGround = false;
         }
     }
-    // resets jump after landing
+    // player enviroment collision
     private void OnCollisionEnter(Collision collision)
     {
+        // resets jump after landing
         isOnGround = true;
         if (collision.gameObject.CompareTag("Ground"))
         {
+            charge = 0;
             isOnGround = true;
+        }
+
+        // makes player bounce off walls
+        if (collision.gameObject.CompareTag("Left_Wall"))
+        {
+            rBody.AddForce(Vector3.right * wallBonk, ForceMode.Impulse);
+        }
+        if (collision.gameObject.CompareTag("Right_Wall"))
+        {
+            rBody.AddForce(Vector3.right * -wallBonk, ForceMode.Impulse);
         }
     }
     // tissue pickup
